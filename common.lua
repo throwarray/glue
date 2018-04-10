@@ -1,4 +1,4 @@
 MODULE = {
-    Polygon = Polygon;
-    Table = Table;
+	Polygon = Polygon;
+	Table = Table;
 }

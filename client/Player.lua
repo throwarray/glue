@@ -16,7 +16,7 @@ Player = {
 	end;
 
 	Teleport = function (x, y, z)
-	    local timeout
+		local timeout
 
 		timeout = UTILS.CreateTimeout(750)
 

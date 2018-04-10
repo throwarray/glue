@@ -85,8 +85,8 @@ end
 local function LoadModel (model)
 	model = toModel(model)
 
-	if not IsModelInCdimage(model) then 
-	    return --0 
+	if not IsModelInCdimage(model) then
+		return --0
 	end
 
 	RequestModel(model)
@@ -113,7 +113,7 @@ end
 
 -- EXPORTS | UTILS
 UTILS = {
-    XYZ = XYZ;
+	XYZ = XYZ;
 
 	-- Model name to int
 	toModel = toModel;
@@ -229,58 +229,58 @@ UTILS = {
 	GetNearbyPlayers = function (...) return NEARBY(EnumeratePlayers, true, ...) end;
 
 	-- Create
-    SpawnPed = function (pedType, model, coords, ang, networked)
-        local model = LoadModel(model)
-        local x, y, z, entity
+	SpawnPed = function (pedType, model, coords, ang, networked)
+		local model = LoadModel(model)
+		local x, y, z, entity
 
-        if model then 
-            local x, y, z = XYZ(coords)
-            local entity = CreatePed(pedType, model, x, y, z, ang or 0.0, networked == true, true)
+		if model then
+			local x, y, z = XYZ(coords)
+			local entity = CreatePed(pedType, model, x, y, z, ang or 0.0, networked == true, true)
 
-            SetPedDefaultComponentVariation(entity)
-		    SetModelAsNoLongerNeeded(model)
+			SetPedDefaultComponentVariation(entity)
+			SetModelAsNoLongerNeeded(model)
 
-		    return entity         
-        end
-    end;
+			return entity
+		end
+	end;
 
 	SpawnObject = function (model, coords, ang, networked)
 		local model = LoadModel(model)
 		local x, y, z, entity
-		
+
 		if model then
-		    x, y, z = XYZ(coords)
-		    entity = CreateObject(model, x, y, z, networked == true, true, true)
-		    SetEntityHeading(entity, ang or 0.0)
-		    SetModelAsNoLongerNeeded(model)
-		    
-		    return entity
+			x, y, z = XYZ(coords)
+			entity = CreateObject(model, x, y, z, networked == true, true, true)
+			SetEntityHeading(entity, ang or 0.0)
+			SetModelAsNoLongerNeeded(model)
+
+			return entity
 		end
 	end;
 
-    SpawnVehicle = function (model, coords, ang, networked)
-        local model = LoadModel(model)
-        local x, y, z, entity, id
+	SpawnVehicle = function (model, coords, ang, networked)
+		local model = LoadModel(model)
+		local x, y, z, entity, id
 
-        if model then
-       		x, y, z = XYZ(coords)
-            entity = CreateVehicle(model, x, y, z, ang or 0.0, networked == true, true)
-            id = NetworkGetNetworkIdFromEntity(entity)         
-            
-            SetNetworkIdCanMigrate(id, true)
-            SetEntityAsMissionEntity(entity,  true,  false)
-            SetVehicleHasBeenOwnedByPlayer(entity,  true)
-            SetModelAsNoLongerNeeded(model)
+		if model then
+			x, y, z = XYZ(coords)
+			entity = CreateVehicle(model, x, y, z, ang or 0.0, networked == true, true)
+			id = NetworkGetNetworkIdFromEntity(entity)
 
-            -- RequestCollisionAtCoord(x, y, z)
-            -- while not HasCollisionLoadedAroundEntity(entity) do
-            --   RequestCollisionAtCoord(x, y, z)
-            --   Citizen.Wait(0)
-            -- end           
+			SetNetworkIdCanMigrate(id, true)
+			SetEntityAsMissionEntity(entity,  true,  false)
+			SetVehicleHasBeenOwnedByPlayer(entity,  true)
+			SetModelAsNoLongerNeeded(model)
 
-            return entity
-        end
-    end;
+			-- RequestCollisionAtCoord(x, y, z)
+			-- while not HasCollisionLoadedAroundEntity(entity) do
+			--   RequestCollisionAtCoord(x, y, z)
+			--   Citizen.Wait(0)
+			-- end
+
+			return entity
+		end
+	end;
 
 	-- Destroy
 	DestroyObject = function (entity)
@@ -291,16 +291,16 @@ UTILS = {
 	end;
 
 	DestroyPed = function (entity)
-        SetEntityAsMissionEntity(entity,  false,  true)
-   		DeletePed(entity)
+		SetEntityAsMissionEntity(entity,  false,  true)
+		DeletePed(entity)
 
-		return entity     
-    end;
+		return entity
+	end;
 
-    DestroyVehicle = function (entity)
-        SetEntityAsMissionEntity(entity,  false,  true)
-   		DeleteVehicle(entity)
+	DestroyVehicle = function (entity)
+		SetEntityAsMissionEntity(entity,  false,  true)
+		DeleteVehicle(entity)
 
-		return entity           
-    end;
+		return entity
+	end;
 }
