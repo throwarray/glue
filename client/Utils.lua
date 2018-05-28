@@ -265,9 +265,13 @@ UTILS = {
 		if model then
 			x, y, z = XYZ(coords)
 			entity = CreateVehicle(model, x, y, z, ang or 0.0, networked == true, true)
-			id = NetworkGetNetworkIdFromEntity(entity)
 
-			SetNetworkIdCanMigrate(id, true)
+			if networked == true then
+				id = NetworkGetNetworkIdFromEntity(entity)
+
+				SetNetworkIdCanMigrate(id, true)
+			end
+
 			SetEntityAsMissionEntity(entity,  true,  false)
 			SetVehicleHasBeenOwnedByPlayer(entity,  true)
 			SetModelAsNoLongerNeeded(model)
